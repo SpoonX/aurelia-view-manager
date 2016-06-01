@@ -8,7 +8,7 @@ System.config({
 
   map: {
     "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.2.5",
-    "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-beta.1.1.0",
+    "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-beta.1.1.6",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.6",
@@ -65,8 +65,8 @@ System.config({
     "npm:aurelia-metadata@1.0.0-beta.1.2.1": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.2.2"
     },
-    "npm:aurelia-polyfills@1.0.0-beta.1.1.0": {
-      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.2.0"
+    "npm:aurelia-polyfills@1.0.0-beta.1.1.6": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.2.2"
     },
     "npm:aurelia-task-queue@1.0.0-beta.1.2.1": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.2.2"

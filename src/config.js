@@ -1,34 +1,26 @@
 import extend from 'extend';
 
-let namespaces = {};
-
-let defaultsTo = {
-  location: '{{framework}}/{{view}}',
-  framework: 'bootstrap'
-};
-
-/**
- * adds a namespace to the namespaces object without configs.
- * uses prototypal inheritance to enable default fallback
- * @param {string} name the name of the namespace
- * @return {object} an empty config whoms prototype is an object containing the
- * defaults
- */
-function createNamespace(name) {
-  let namespaceConfig = Object.create(defaultsTo);
-  namespaceConfig.map = {};
-  return namespaceConfig;
-}
-
 export class Config {
-  /**
-   * change the defaults to be used when namespace location and framework is not
-   * defined.
-   * @param {object} defaults values to use as the defaults
-   * @returns {Config}
+
+  /***
+   * these can be overwritten with the configureDefaults function
    */
-  extendDefaults(defaults) {
-    extend(defaultsTo, defaults);
+
+  constructor() {
+    this.defaults = {
+      location: '{{framework}}/{{view}}.html',
+      framework: 'bootstrap'};
+    this.configurations = {}; //stores the namespaced configs
+    this.configurations.defaults = this.defaults; /* have the defaults object showup like a namespaces in the configurations object */
+  }
+
+  /**
+   * extends the defaults object
+   * @param {object} configs
+   * @return {Config} self
+   */
+  configureDefaults(configs) {
+    extend(true, this.defaults, configs);
     return this;
   }
 
@@ -36,48 +28,48 @@ export class Config {
    * Register configuration for the view manager to use later.
    *
    * @param {string} name of the namespace
-   * @param {object} def configs used to resolve template paths
+   * @param {object} [def={}] configs used to resolve template paths
    *
    * @returns {Config}
    */
-  setNamespace(name, configs) {
-    let namespaceConfig = namespaces[name];
-    if (!namespaces[name]) {
-      namespaceConfig = createNamespace(name)
-    }
-
-    namespaces[name] = extend(true, namespaceConfig, configs);
-
+  register(name, configs) {
+    let namespace = this.get(name) || Object.create(this.defaults);
+    extend(true, namespace, configs || {});
+    let config = {};
+    config[name] = namespace;
+    this.configure(config);
     return this;
   }
 
   /**
-   * returns the object with all the namespaces configurations
-   * @returns {object} a new object with namespaces object as prototype
+   * extends the configuration object. When writing to the configurations
+   * object it is best to use this function.
+   *
+   * @param {object} config
+   * @returns {Config} self
    */
-  namespaceConfigurations() {
-    return Object.create(namespaces);
+  configure(config) {
+    extend(true, this.configurations, config);
+    return this;
   }
 
   /**
-   * returns the object with the default configurations
-   * @returns {object}
-   */
-  getDefaults() {
-    return defaultsTo;
-  }
-
-  /**
-   * returns either the namespace config or the defaultsTo configs
+   * convenient for getting a (nested) property in the configurations
+   * object.
    *
-   * @param {string} [name]
-   * @returns {object} the config object for that namespace.
+   * @param {...string} props when prop is falsy it returns the whole
+   * configurations object
    *
-   * @todo
-   * consider returning an error when name argument is passed and the
-   * namespace has no configs defined
+   * @returns {*} the value of that property
    */
-  getConfigs(namespace) {
-    return namespaces[namespace] || defaultsTo;
+  get(props) {
+    let result = this.configurations;
+    for (let index in arguments) {
+      let key = arguments[index];
+      let value = result[key];
+      if (!value) { return value; } //if undefined return it
+      result = result[key];
+    }
+    return result;
   }
 }
