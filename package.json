@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-view",
+  "name": "aurelia-view-manager",
   "version": "0.0.2",
   "description": "A view manager for aurelia plugins. Add support for overriding views, and multiple frameworks",
   "keywords": [
@@ -10,14 +10,14 @@
   ],
   "homepage": "http://aurelia.io",
   "bugs": {
-    "url": "https://github.com/SpoonX/aurelia-view/issues"
+    "url": "https://github.com/SpoonX/aurelia-view-manager/issues"
   },
   "license": "CC0-1.0",
   "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SpoonX/aurelia-view"
+    "url": "https://github.com/SpoonX/aurelia-view-manager"
   },
   "devDependencies": {
     "aurelia-tools": "^0.1.18",

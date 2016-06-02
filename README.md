@@ -1,4 +1,4 @@
-# view-manager
+# aurelia-view-manager
 
 > Enables the support of multiple rendering strategies and configuring view
 > strategies at run time.
