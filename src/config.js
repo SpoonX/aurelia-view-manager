@@ -4,7 +4,7 @@ export class Config {
 
   /* these can be overwritten with the configureDefaults function */
   defaults = {
-    location:  '{{framework}}/{{view}}.html',
+    location: '{{framework}}/{{view}}.html',
     framework: 'bootstrap'
   };
 
