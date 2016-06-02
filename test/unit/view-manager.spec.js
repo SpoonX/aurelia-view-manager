@@ -28,7 +28,7 @@ describe('ViewManager', () => {
 
   it('uses the passed view to populate the view placeholder', () => {
 
-    config.register('form', {
+    config.configureNamespace('form', {
       location: '{{framework}}/{{style}}/views/{{view}}.html',
       framework: 'bootstrap',
       style: 'minimal'

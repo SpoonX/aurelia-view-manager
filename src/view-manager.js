@@ -1,4 +1,4 @@
-import {inject} from 'aurelia-framework'; /* only import aurelia-di */
+import {inject} from 'aurelia-dependency-injection';
 import {Config} from './config';
 
 @inject(Config)
@@ -18,41 +18,35 @@ export class ViewManager {
    * @returns {string} represents the path of the view
    */
   resolve(namespace, view) {
-    if (arguments.length !== 2) { /* both arguments aare required */
+    if (!namespace || !view) { /* both arguments are required */
       throw new Error(
         `Cannot resolve without namespace and view. Got namespace "${namespace}" and view "${view}" in stead`
       );
     }
 
-    let config = this.config.get(namespace) || this.config.register(namespace).get(namespace);
-
-    /* check if view has a custom mapValue else use the default.location */
-    let path = this.config.get(namespace, 'map', view) || `${config.location}`;
-
+    let config  = Object.create(this.config.fetch(namespace));
     config.view = view;
 
-    return render(path, config);
+    return render(config.location, config);
   }
 }
 
-/***
+/**
  * returns the rendered string based on a template with mustaches and an object
  *
  * @param {string} template
  * @param {object} data
- * @param {string}
+ * @returns {string}
  */
 function render(template, data) {
   let result = template;
+
   for (let key in data) {
-    let regexString = [
-      '{{',
-      key,
-      '}}'
-    ].join('');
-    let regex = new RegExp(regexString, 'g');
-    let value = data[key];
-    result = result.replace(regex, value);
+    let regexString = ['{{', key, '}}'].join('');
+    let regex       = new RegExp(regexString, 'g');
+    let value       = data[key];
+    result          = result.replace(regex, value);
   }
+
   return result;
 }

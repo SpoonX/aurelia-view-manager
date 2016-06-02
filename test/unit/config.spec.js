@@ -9,7 +9,7 @@ describe('config', () => {
   });
 
   it('uses the same defaults object in configurations', () => {
-    expect(config.defaults).toBe(config.configurations.defaults);
+    expect(config.defaults).toBe(config.namespaces.defaults);
   });
 
   it('can get defaults and has sane defaults', () => {
@@ -17,7 +17,7 @@ describe('config', () => {
       location: '{{framework}}/{{view}}.html',
       framework: 'bootstrap'
     };
-    expect(config.get('defaults')).toEqual(defaults)
+    expect(config.fetch('defaults')).toEqual(defaults);
   });
 
   it('allows users to register under a namespace', () => {
@@ -25,9 +25,9 @@ describe('config', () => {
       one: 1,
       two: 2,
     };
-    // it chains
-    expect(config.register('form', components)).toBe(config);
-    expect(config.get('form')).toEqual(components);
+    /* chainable */
+    expect(config.configureNamespace('form', components)).toBe(config);
+    expect(config.fetch('form')).toEqual(components);
   });
 
   it('can set defaults', () => {
@@ -38,7 +38,7 @@ describe('config', () => {
     };
 
     expect(config.configureDefaults({boo: 'two'})).toEqual(config); //returns self
-    expect(config.get('defaults')).toEqual(defaults);
+    expect(config.fetch('defaults')).toEqual(defaults);
   });
 
 });

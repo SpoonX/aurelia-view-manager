@@ -5,7 +5,7 @@ describe('resolvedView', () => {
 
   let container;
   let fake;
-  class Fake {};
+  class Fake {}
 
   beforeEach(() => {
     container = new Container().makeGlobal();
