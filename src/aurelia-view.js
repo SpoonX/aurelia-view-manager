@@ -5,7 +5,9 @@ import {resolvedView} from './decorators/resolved-view';
 function configure(aurelia, configCallback) {
   let config = aurelia.container.get(Config);
 
-  configCallback(config);
+  if (configCallback) {
+    configCallback(config);
+  }
 }
 
 export {
