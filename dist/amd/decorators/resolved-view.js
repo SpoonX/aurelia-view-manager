@@ -1,4 +1,4 @@
-define(['exports', 'aurelia-dependency-injection', './../view-manager'], function (exports, _aureliaDependencyInjection, _viewManager) {
+define(['exports', 'aurelia-dependency-injection', './../view-manager', 'aurelia-templating'], function (exports, _aureliaDependencyInjection, _viewManager, _aureliaTemplating) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -8,7 +8,10 @@ define(['exports', 'aurelia-dependency-injection', './../view-manager'], functio
   function resolvedView(namespace, view) {
     return function resolvedViewDecorator(target) {
       var viewManager = _aureliaDependencyInjection.Container.instance.get(_viewManager.ViewManager);
-      target.getViewStrategy = viewManager.resolve(namespace, view);
+
+      target.prototype.getViewStrategy = viewManager.resolve.bind(viewManager, namespace, view);
+
+      (0, _aureliaTemplating.useView)(viewManager.resolve(namespace, view))(target);
 
       return target;
     };
