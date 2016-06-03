@@ -1,4 +1,5 @@
 {
+    "root": "./doc",
     "plugins": [
         "edit-link",
         "github",
@@ -6,11 +7,11 @@
     ],
     "pluginsConfig": {
         "edit-link": {
-            "base": "https://github.com/SpoonX/aurelia-authentication-docs/edit/master",
+            "base": "https://github.com/SpoonX/aurelia-view-manager-docs/edit/master",
             "label": "Edit This Page"
         },
         "github": {
-            "url": "https://github.com/spoonx/aurelia-authentication"
+            "url": "https://github.com/spoonx/aurelia-view-manager"
         },
         "versions": {
             "type": "tags"
