@@ -42,10 +42,12 @@ System.register(['aurelia-dependency-injection', './config'], function (_export,
             throw new Error('Cannot resolve without namespace and view. Got namespace "' + namespace + '" and view "' + view + '" in stead');
           }
 
-          var config = Object.create(this.config.fetch(namespace));
-          config.view = view;
+          var namespaceOrDefault = Object.create(this.config.fetch(namespace));
+          namespaceOrDefault.view = view;
 
-          return render(config.location, config);
+          var location = namespaceOrDefault.map[view] || namespaceOrDefault.location;
+
+          return render(location, namespaceOrDefault);
         };
 
         return ViewManager;

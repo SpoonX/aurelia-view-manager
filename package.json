@@ -1,19 +1,24 @@
 {
   "name": "aurelia-view-manager",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A view manager for aurelia plugins. Add support for overriding views, and multiple frameworks",
   "keywords": [
     "view",
     "manager",
     "custom",
-    "elements"
+    "elements",
+    "aurelia",
+    "spoonx"
   ],
-  "homepage": "http://aurelia.io",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "homepage": "https://github.com/SpoonX/aurelia-view-manager",
   "bugs": {
     "url": "https://github.com/SpoonX/aurelia-view-manager/issues"
   },
-  "license": "CC0-1.0",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
+  "license": "MIT",
+  "author": "SpoonX",
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
@@ -48,6 +53,7 @@
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^0.2.1",
     "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^0.3.5",
     "karma-jspm": "2.0.1-beta.2",
     "object.assign": "^1.0.3",

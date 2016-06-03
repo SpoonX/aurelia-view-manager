@@ -5,7 +5,8 @@ export let Config = class Config {
   constructor() {
     this.defaults = {
       location: '{{framework}}/{{view}}.html',
-      framework: 'bootstrap'
+      framework: 'bootstrap',
+      map: {}
     };
     this.namespaces = {};
 
@@ -18,8 +19,8 @@ export let Config = class Config {
     return this;
   }
 
-  configureNamespace(name, configs = {}) {
-    let namespace = this.fetch(name);
+  configureNamespace(name, configs = { map: {} }) {
+    let namespace = Object.create(this.fetch(name));
     extend(true, namespace, configs);
     let config = {};
     config[name] = namespace;
@@ -36,7 +37,7 @@ export let Config = class Config {
 
   fetch(properties) {
     if (!this.namespaces[properties]) {
-      return Object.create(this.defaults);
+      return this.defaults;
     }
 
     let result = this.namespaces;

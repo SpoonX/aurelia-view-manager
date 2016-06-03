@@ -14,10 +14,12 @@ export let ViewManager = (_dec = inject(Config), _dec(_class = class ViewManager
       throw new Error(`Cannot resolve without namespace and view. Got namespace "${ namespace }" and view "${ view }" in stead`);
     }
 
-    let config = Object.create(this.config.fetch(namespace));
-    config.view = view;
+    let namespaceOrDefault = Object.create(this.config.fetch(namespace));
+    namespaceOrDefault.view = view;
 
-    return render(config.location, config);
+    let location = namespaceOrDefault.map[view] || namespaceOrDefault.location;
+
+    return render(location, namespaceOrDefault);
   }
 }) || _class);
 

@@ -19,7 +19,8 @@ var Config = exports.Config = function () {
 
     this.defaults = {
       location: '{{framework}}/{{view}}.html',
-      framework: 'bootstrap'
+      framework: 'bootstrap',
+      map: {}
     };
     this.namespaces = {};
 
@@ -33,9 +34,9 @@ var Config = exports.Config = function () {
   };
 
   Config.prototype.configureNamespace = function configureNamespace(name) {
-    var configs = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var configs = arguments.length <= 1 || arguments[1] === undefined ? { map: {} } : arguments[1];
 
-    var namespace = this.fetch(name);
+    var namespace = Object.create(this.fetch(name));
     (0, _extend2.default)(true, namespace, configs);
     var config = {};
     config[name] = namespace;
@@ -52,7 +53,7 @@ var Config = exports.Config = function () {
 
   Config.prototype.fetch = function fetch(properties) {
     if (!this.namespaces[properties]) {
-      return Object.create(this.defaults);
+      return this.defaults;
     }
 
     var result = this.namespaces;

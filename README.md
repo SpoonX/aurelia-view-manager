@@ -1,11 +1,11 @@
 # aurelia-view-manager
 
+[![Build Status](https://travis-ci.org/SpoonX/aurelia-view-manager.svg?branch=master)](https://travis-ci.org/SpoonX/aurelia-view-manager)
+[![Gitter](https://img.shields.io/gitter/room/nw
+s/nw.js.svg?maxAge=2592000?style=plastic)](https://gitter.im/SpoonX/Dev)
+
 > Enables the support of multiple rendering strategies and configuring view
 > strategies at run time.
-
-This library is part of the [Aurelia](http://www.aurelia.io/) platform and implements a modern databinding library for JavaScript and HTML.
-
-> To keep up to date on [Aurelia](http://www.aurelia.io/), please visit and subscribe to [the official blog](http://blog.durandal.io/) and [our email list](http://durandal.us10.list-manage1.com/subscribe?u=dae7661a3872ee02b519f6f29&id=3de6801ccc). We also invite you to [follow us on twitter](https://twitter.com/aureliaeffect). If you have questions, please [join our community on Gitter](https://gitter.im/aurelia/discuss). If you would like to have deeper insight into our development process, please install the [ZenHub](https://zenhub.io) Chrome or Firefox Extension and visit any of our repository's boards. You can get an overview of all Aurelia work by visiting [the framework board](https://github.com/aurelia/framework#boards).
 
 ## Installation
 
@@ -45,7 +45,7 @@ framework independent.
 
 > example taken from `aurelia-form`
 
-```javascript
+```js
 import {Config as ViewManagerConfig} from 'view-manager';
 
 @inject(ViewManagerConfig)
@@ -88,7 +88,7 @@ One can also imagine the use-case where they would want to develop slightly
 different views for different view widths or devices. View-manager allows one to
 support this feature during application runtime.
 
-```javascript
+```js
 
   viewManagerConfig.configureNamespace('aurelia-form', {
     device: 'mobile',
@@ -101,7 +101,7 @@ support this feature during application runtime.
 At a point in your application lifecycle you can change the `device` configuration
 to `desktop` by doing the following.
 
-```javascript
+```js
   viewManagerConfig.configureNamespace('aurelia-form', {
     device: 'desktop'
   });
@@ -116,7 +116,7 @@ one to write a view model, and dynamically change the view whenever he she want
 using the view manager's configuration methods.
 
 
-```javascript
+```js
 
 @resolvedView('modal', 'modal')
 class ModalCustomElement {
@@ -130,7 +130,7 @@ method on the `ModalCustomElement`'s class should return
 
 > The configuration for a modal.
 
-```javascript
+```js
 viewManagerConfig.configureNamespace('modal', {
   base: './views/{{framework}}',
   map: {
