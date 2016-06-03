@@ -17,7 +17,8 @@ describe('ViewManager', () => {
     // change the default namespace config and chain */
     expect(config.configureDefaults({
       location: 'my/views/{{view}}/{{framework}}.html',
-      framework: 'plmr'
+      framework: 'plmr',
+      map: {}
     })).toBe(config);
 
     /* check if new defaults are used when resolving view */
@@ -45,4 +46,16 @@ describe('ViewManager', () => {
       'bootstrap/my-template.html'
     );
   });
+
+  it('resolves a mapped view', () => {
+
+    config.configureNamespace('namespace', {
+      map: {
+        text: 'input.html'
+      }
+    });
+
+    expect(viewManager.resolve('namespace', 'text')).toBe('input.html');
+  });
+
 })

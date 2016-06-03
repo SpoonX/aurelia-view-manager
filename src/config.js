@@ -5,7 +5,8 @@ export class Config {
   /* these can be overwritten with the configureDefaults function */
   defaults = {
     location: '{{framework}}/{{view}}.html',
-    framework: 'bootstrap'
+    framework: 'bootstrap',
+    map: {}
   };
 
   /* stores the namespaced configs */
@@ -38,8 +39,8 @@ export class Config {
    *
    * @returns {Config}
    */
-  configureNamespace(name, configs = {}) {
-    let namespace = this.fetch(name);
+  configureNamespace(name, configs = {map: {}}) {
+    let namespace = Object.create(this.fetch(name));
     extend(true, namespace, configs);
     let config   = {};
     config[name] = namespace;
@@ -68,12 +69,12 @@ export class Config {
    * @param {...string} properties when prop is falsy it returns the whole
    * namespaces object
    *
-   * @returns {*} the value of that property
+   * @returns {*} the value of that property or undefined
    */
   fetch(properties) {
     if (!this.namespaces[properties]) {
       /* if namespace is not defined it creates a new object with proto defaults  */
-      return Object.create(this.defaults);
+      return this.defaults;
     }
 
     let result = this.namespaces;

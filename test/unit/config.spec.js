@@ -15,7 +15,8 @@ describe('config', () => {
   it('can get defaults and has sane defaults', () => {
     let defaults = {
       location: '{{framework}}/{{view}}.html',
-      framework: 'bootstrap'
+      framework: 'bootstrap',
+      map: {}
     };
     expect(config.fetch('defaults')).toEqual(defaults);
   });
@@ -32,12 +33,14 @@ describe('config', () => {
 
   it('can set defaults', () => {
     let defaults = {
-      boo: 'two',
       location: '{{framework}}/{{view}}.html',
-      framework: 'bootstrap'
+      map: {},
+      framework: 'bootstrap',
+      boo: 'two'
     };
 
-    expect(config.configureDefaults({boo: 'two'})).toEqual(config); //returns self
+    /* chainable */
+    expect(config.configureDefaults(defaults)).toEqual(config);
     expect(config.fetch('defaults')).toEqual(defaults);
   });
 

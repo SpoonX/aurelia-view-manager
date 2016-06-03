@@ -24,10 +24,12 @@ export class ViewManager {
       );
     }
 
-    let config  = Object.create(this.config.fetch(namespace));
-    config.view = view;
+    let namespaceOrDefault  = Object.create(this.config.fetch(namespace));
+    namespaceOrDefault.view = view;
 
-    return render(config.location, config);
+    let location            = namespaceOrDefault.map[view] || namespaceOrDefault.location;
+
+    return render(location, namespaceOrDefault);
   }
 }
 
