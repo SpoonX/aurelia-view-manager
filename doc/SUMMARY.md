@@ -1,4 +1,5 @@
 # Summary
 
-* README.md
+* [Introduction](README.md)
+* [Changelog](CHANGELOG.md)
 
