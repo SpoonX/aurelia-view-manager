@@ -1,0 +1,19 @@
+{
+    "plugins": [
+        "edit-link",
+        "github",
+        "versions"
+    ],
+    "pluginsConfig": {
+        "edit-link": {
+            "base": "https://github.com/SpoonX/aurelia-authentication-docs/edit/master",
+            "label": "Edit This Page"
+        },
+        "github": {
+            "url": "https://github.com/spoonx/aurelia-authentication"
+        },
+        "versions": {
+            "type": "tags"
+        }
+    }
+}
