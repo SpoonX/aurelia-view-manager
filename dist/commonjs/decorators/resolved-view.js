@@ -12,13 +12,8 @@ var _viewManager = require('./../view-manager');
 var _aureliaTemplating = require('aurelia-templating');
 
 function resolvedView(namespace, view) {
-  return function resolvedViewDecorator(target) {
-    var viewManager = _aureliaDependencyInjection.Container.instance.get(_viewManager.ViewManager);
+  var viewManager = _aureliaDependencyInjection.Container.instance.get(_viewManager.ViewManager);
+  var path = viewManager.resolve(namespace, view);
 
-    target.prototype.getViewStrategy = viewManager.resolve.bind(viewManager, namespace, view);
-
-    (0, _aureliaTemplating.useView)(viewManager.resolve(namespace, view))(target);
-
-    return target;
-  };
+  return (0, _aureliaTemplating.useViewStrategy)(new _aureliaTemplating.RelativeViewStrategy(path));
 }

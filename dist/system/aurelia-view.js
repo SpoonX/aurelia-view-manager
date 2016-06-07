@@ -7,9 +7,10 @@ System.register(['./config', './view-manager', './decorators/resolved-view'], fu
 
 
   function configure(aurelia, configCallback) {
-    var config = aurelia.container.get(Config);
-
-    configCallback(config);
+    if (configCallback) {
+      var config = aurelia.container.get(Config);
+      configCallback(config);
+    }
   }
 
   return {

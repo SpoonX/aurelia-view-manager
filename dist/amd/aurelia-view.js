@@ -8,9 +8,10 @@ define(['exports', './config', './view-manager', './decorators/resolved-view'], 
 
 
   function configure(aurelia, configCallback) {
-    var config = aurelia.container.get(_config.Config);
-
-    configCallback(config);
+    if (configCallback) {
+      var config = aurelia.container.get(_config.Config);
+      configCallback(config);
+    }
   }
 
   exports.configure = configure;

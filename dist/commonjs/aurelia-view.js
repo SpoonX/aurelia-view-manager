@@ -12,9 +12,10 @@ var _viewManager = require('./view-manager');
 var _resolvedView = require('./decorators/resolved-view');
 
 function configure(aurelia, configCallback) {
-  var config = aurelia.container.get(_config.Config);
-
-  configCallback(config);
+  if (configCallback) {
+    var config = aurelia.container.get(_config.Config);
+    configCallback(config);
+  }
 }
 
 exports.configure = configure;
