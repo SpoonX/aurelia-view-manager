@@ -41,9 +41,9 @@ export class Config {
    */
   configureNamespace(name, configs = {map: {}}) {
     let namespace = Object.create(this.fetch(name));
+    let config    = {[name]: namespace};
+
     extend(true, namespace, configs);
-    let config   = {};
-    config[name] = namespace;
     this.configure(config);
 
     return this;

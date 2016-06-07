@@ -1,10 +1,12 @@
 import {resolvedView} from './../../src/decorators/resolved-view.js';
+import {ViewManager} from './../../src/view-manager';
 import {Container} from 'aurelia-dependency-injection';
 
 describe('resolvedView', () => {
 
   let container;
   let fake;
+
   class Fake {}
 
   beforeEach(() => {
@@ -12,11 +14,23 @@ describe('resolvedView', () => {
     fake = new Fake();
   });
 
-  it('sets the getViewStrategy property', () => {
-    /* is higher order */
-    expect(fake.getViewStrategy).toBeUndefined(); /* first it is undefined */
-    expect(typeof resolvedView('namespace', 'view')).toBe('function'); /* then it is set */
-    expect(resolvedView('namespace', 'view')(fake).getViewStrategy).toBeDefined();
+  it('calls the resolve method', () => {
+    let viewManager = Container.instance.get(ViewManager);
+    spyOn(viewManager, 'resolve');
+    resolvedView('hello', 'world')(Fake);
+    expect(viewManager.resolve).toHaveBeenCalled();
+  });
+
+  xit('decorates the constructor', () => {
+    expect(resolvedView('namespace', 'view')(Fake).prototype.getViewStrategy).toBeDefined();
+  });
+
+  it('resolvedView is a higher order function', () => {
+    expect(typeof resolvedView('namespace', 'view')).toBe('function');
+  });
+
+  xit('sets the getViewStrategy property on the instance', () => {
+    expect(fake.getViewStrategy).toBeDefined();
   });
 });
 
