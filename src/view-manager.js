@@ -38,6 +38,7 @@ export class ViewManager {
  *
  * @param {string} template
  * @param {object} data
+ *
  * @returns {string}
  */
 function render(template, data) {
@@ -48,6 +49,11 @@ function render(template, data) {
     let regex       = new RegExp(regexString, 'g');
     let value       = data[key];
     result          = result.replace(regex, value);
+  }
+
+  /* performs the rendering of nested templates */
+  if (template !== result) {
+    result = render(result, data);
   }
 
   return result;
