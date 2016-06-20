@@ -1,6 +1,6 @@
 {
   "name": "aurelia-view-manager",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A view manager for aurelia plugins. Add support for overriding views, and multiple frameworks",
   "keywords": [
     "view",

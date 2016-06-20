@@ -11,10 +11,14 @@ var _viewManager = require('./view-manager');
 
 var _resolvedView = require('./decorators/resolved-view');
 
+var _aureliaLogging = require('aurelia-logging');
+
 function configure(aurelia, configCallback) {
-  if (configCallback) {
+  if (typeof configCallback === 'function') {
     var config = aurelia.container.get(_config.Config);
     configCallback(config);
+  } else if (configCallback) {
+    (0, _aureliaLogging.getLogger)('aurelia-view').warn('config takes a function');
   }
 }
 

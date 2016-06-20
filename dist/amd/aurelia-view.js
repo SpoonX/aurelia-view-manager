@@ -1,4 +1,4 @@
-define(['exports', './config', './view-manager', './decorators/resolved-view'], function (exports, _config, _viewManager, _resolvedView) {
+define(['exports', './config', './view-manager', './decorators/resolved-view', 'aurelia-logging'], function (exports, _config, _viewManager, _resolvedView, _aureliaLogging) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -8,9 +8,11 @@ define(['exports', './config', './view-manager', './decorators/resolved-view'], 
 
 
   function configure(aurelia, configCallback) {
-    if (configCallback) {
+    if (typeof configCallback === 'function') {
       var config = aurelia.container.get(_config.Config);
       configCallback(config);
+    } else if (configCallback) {
+      (0, _aureliaLogging.getLogger)('aurelia-view').warn('config takes a function');
     }
   }
 
