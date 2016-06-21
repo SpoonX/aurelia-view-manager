@@ -21,6 +21,10 @@ System.register(['aurelia-dependency-injection', './config'], function (_export,
       result = result.replace(regex, value);
     }
 
+    if (template !== result) {
+      result = render(result, data);
+    }
+
     return result;
   }
   return {

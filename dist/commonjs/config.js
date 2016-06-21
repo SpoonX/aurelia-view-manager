@@ -34,12 +34,14 @@ var Config = exports.Config = function () {
   };
 
   Config.prototype.configureNamespace = function configureNamespace(name) {
+    var _config;
+
     var configs = arguments.length <= 1 || arguments[1] === undefined ? { map: {} } : arguments[1];
 
     var namespace = Object.create(this.fetch(name));
+    var config = (_config = {}, _config[name] = namespace, _config);
+
     (0, _extend2.default)(true, namespace, configs);
-    var config = {};
-    config[name] = namespace;
     this.configure(config);
 
     return this;

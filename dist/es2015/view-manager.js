@@ -33,5 +33,9 @@ function render(template, data) {
     result = result.replace(regex, value);
   }
 
+  if (template !== result) {
+    result = render(result, data);
+  }
+
   return result;
 }

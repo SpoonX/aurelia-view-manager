@@ -1,15 +1,17 @@
 'use strict';
 
-System.register(['./config', './view-manager', './decorators/resolved-view'], function (_export, _context) {
+System.register(['./config', './view-manager', './decorators/resolved-view', 'aurelia-logging'], function (_export, _context) {
   "use strict";
 
-  var Config, ViewManager, resolvedView;
+  var Config, ViewManager, resolvedView, getLogger;
 
 
   function configure(aurelia, configCallback) {
-    if (configCallback) {
+    if (typeof configCallback === 'function') {
       var config = aurelia.container.get(Config);
       configCallback(config);
+    } else if (configCallback) {
+      getLogger('aurelia-view').warn('config takes a function');
     }
   }
 
@@ -20,6 +22,8 @@ System.register(['./config', './view-manager', './decorators/resolved-view'], fu
       ViewManager = _viewManager.ViewManager;
     }, function (_decoratorsResolvedView) {
       resolvedView = _decoratorsResolvedView.resolvedView;
+    }, function (_aureliaLogging) {
+      getLogger = _aureliaLogging.getLogger;
     }],
     execute: function () {
       _export('configure', configure);

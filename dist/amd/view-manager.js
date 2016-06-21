@@ -47,6 +47,10 @@ define(['exports', 'aurelia-dependency-injection', './config'], function (export
       result = result.replace(regex, value);
     }
 
+    if (template !== result) {
+      result = render(result, data);
+    }
+
     return result;
   }
 });
