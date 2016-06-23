@@ -1,3 +1,4 @@
+import {Container} from 'aurelia-dependency-injection';
 import {ViewManager} from '../../src/view-manager';
 import {Config} from '../../src/config';
 
@@ -7,9 +8,9 @@ describe('ViewManager', () => {
   let config;
 
   beforeEach(() => {
-
-    config = new Config();
-    viewManager = new ViewManager(config);
+    new Container().makeGlobal();
+    viewManager = Container.instance.get(ViewManager);
+    config      = Container.instance.get(Config);
   });
 
   it('allows one to set the defaults', () => {
@@ -47,7 +48,7 @@ describe('ViewManager', () => {
     );
   });
 
-  it('resolves a mapped view', () => {
+  it('resolves a re-mapped view', () => {
 
     config.configureNamespace('namespace', {
       map: {
