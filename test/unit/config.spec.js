@@ -44,4 +44,22 @@ describe('config', () => {
     expect(config.fetch('defaults')).toEqual(defaults);
   });
 
+  it('gets the values of the new configure object', () => {
+    config.configureNamespace('form', {
+      map: {
+        text: './path.html'
+      }
+    });
+
+    expect(config.namespaces['form'].map.text).toBe('./path.html');
+
+    config.configureNamespace('form', {
+      map: {
+        text: './altered.html'
+      }
+    });
+
+    expect(config.namespaces['form'].map.text).toBe('./altered.html');
+  });
+
 });
