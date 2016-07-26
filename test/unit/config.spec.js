@@ -1,7 +1,6 @@
 import {Config} from '../../src/config';
 
 describe('config', () => {
-
   let config;
 
   beforeEach(function() {
@@ -24,7 +23,7 @@ describe('config', () => {
   it('allows users to register under a namespace', () => {
     let components = {
       one: 1,
-      two: 2,
+      two: 2
     };
     /* chainable */
     expect(config.configureNamespace('form', components)).toBe(config);
@@ -51,7 +50,7 @@ describe('config', () => {
       }
     });
 
-    expect(config.namespaces['form'].map.text).toBe('./path.html');
+    expect(config.namespaces.form.map.text).toBe('./path.html');
 
     config.configureNamespace('form', {
       map: {
@@ -59,7 +58,6 @@ describe('config', () => {
       }
     });
 
-    expect(config.namespaces['form'].map.text).toBe('./altered.html');
+    expect(config.namespaces.form.map.text).toBe('./altered.html');
   });
-
 });

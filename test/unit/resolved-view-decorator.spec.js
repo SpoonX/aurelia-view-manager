@@ -3,7 +3,6 @@ import {ViewManager} from './../../src/view-manager';
 import {Container} from 'aurelia-dependency-injection';
 
 describe('resolvedView', () => {
-
   let fake;
 
   class Fake {}
