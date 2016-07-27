@@ -1,4 +1,4 @@
-import * as exports from '../../src/aurelia-view';
+import * as exports from '../../dist/amd/aurelia-view-manager';
 
 describe('aurelia-view-manager', () => {
   it('exports all the required things', () => {

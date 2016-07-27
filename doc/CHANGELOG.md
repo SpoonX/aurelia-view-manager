@@ -1,3 +1,25 @@
+<a name="0.0.6"></a>
+## 0.0.6 (2016-07-27)
+
+
+### Bug Fixes
+
+* **config:** check if configCallback is a function, warn if not ([ec2ab32](https://github.com/SpoonX/aurelia-view-manager/commit/ec2ab32))
+* **config:** uses correct export from aurelia-logging ([a5c2729](https://github.com/SpoonX/aurelia-view-manager/commit/a5c2729))
+* **decorators:** exports resolved view from aurelia-view.js ([7e84562](https://github.com/SpoonX/aurelia-view-manager/commit/7e84562))
+* **decorators:** properly decorates the constructor and uses useView ([1ab6864](https://github.com/SpoonX/aurelia-view-manager/commit/1ab6864))
+* **logging:** logging using aurelia-logging instead of console ([dc4d135](https://github.com/SpoonX/aurelia-view-manager/commit/dc4d135))
+* **resolve:** the resolving of the location template happens recursively, meaning that nested templates are supported ([a007685](https://github.com/SpoonX/aurelia-view-manager/commit/a007685))
+* **viewResolver:** returns the mapped value of the namespace ([893a041](https://github.com/SpoonX/aurelia-view-manager/commit/893a041))
+
+
+### Features
+
+* **project:** Added travis ([686fff2](https://github.com/SpoonX/aurelia-view-manager/commit/686fff2))
+* **project:** new build with typings and bundled ([3b28184](https://github.com/SpoonX/aurelia-view-manager/commit/3b28184))
+
+
+
 ### 0.0.5 (2016-06-20)
 
 

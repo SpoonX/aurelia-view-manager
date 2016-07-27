@@ -1,0 +1,28 @@
+{
+  "name": "aurelia-view-manager",
+  "version": "0.0.6",
+  "description": "A view manager for aurelia plugins. Add support for overriding views, and multiple frameworks",
+  "keywords": [
+    "view",
+    "manager",
+    "custom",
+    "elements",
+    "aurelia",
+    "spoonx"
+  ],
+  "homepage": "https://github.com/SpoonX/aurelia-view-manager",
+  "main": "dist/commonjs/aurelia-view-manager.js",
+  "moduleType": "node",
+  "license": "MIT",
+  "author": "SpoonX",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpoonX/aurelia-view-manager"
+  },
+  "dependencies": {
+    "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
+    "aurelia-logging": "^1.0.0-rc.1.0.0",
+    "aurelia-templating": "^1.0.0-rc.1.0.0",
+    "extend": "^3.0.0"
+  }
+}

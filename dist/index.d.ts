@@ -1,0 +1,1 @@
+export * from 'aurelia-view-manager/aurelia-view-manager';
