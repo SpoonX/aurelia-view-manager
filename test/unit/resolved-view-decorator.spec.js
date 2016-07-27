@@ -3,14 +3,12 @@ import {ViewManager} from './../../src/view-manager';
 import {Container} from 'aurelia-dependency-injection';
 
 describe('resolvedView', () => {
-
-  let container;
   let fake;
 
   class Fake {}
 
   beforeEach(() => {
-    container = new Container().makeGlobal();
+    new Container().makeGlobal();
     fake = new Fake();
   });
 
@@ -33,4 +31,3 @@ describe('resolvedView', () => {
     expect(fake.getViewStrategy).toBeDefined();
   });
 });
-

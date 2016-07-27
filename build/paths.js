@@ -9,5 +9,6 @@ module.exports = {
   output: outputRoot,
   doc:'./doc',
   e2eSpecsSrc: 'test/e2e/src/*.js',
-  e2eSpecsDist: 'test/e2e/dist/'
+  e2eSpecsDist: 'test/e2e/dist/',
+  unitSpecs: 'test/unit/**/*.js'
 };
