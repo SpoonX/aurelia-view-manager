@@ -1,6 +1,6 @@
 {
   "name": "aurelia-view-manager",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "A view manager for aurelia plugins. Add support for overriding views, and multiple frameworks",
   "keywords": [
     "view",
@@ -27,6 +27,7 @@
   },
   "jspm": {
     "registry": "npm",
+    "jspmPackage": true,
     "main": "aurelia-view-manager",
     "format": "amd",
     "directories": {
@@ -38,9 +39,21 @@
       "aurelia-templating": "^1.0.0-rc.1.0.0",
       "extend": "^3.0.0"
     },
+    "peerDependencies": {
+      "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
+      "aurelia-logging": "^1.0.0-rc.1.0.0",
+      "aurelia-templating": "^1.0.0-rc.1.0.0",
+      "extend": "^3.0.0"
+    },
     "devDependencies": {
       "aurelia-polyfills": "^1.0.0-rc.1.0.0"
     }
+  },
+  "dependencies": {
+    "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
+    "aurelia-logging": "^1.0.0-rc.1.0.0",
+    "aurelia-templating": "^1.0.0-rc.1.0.0",
+    "extend": "^3.0.0"
   },
   "devDependencies": {
     "aurelia-tools": "^0.2.3",
@@ -90,5 +103,10 @@
     "vinyl": "^1.1.1",
     "vinyl-paths": "^2.1.0",
     "yargs": "^4.8.1"
+  },
+  "aurelia": {
+    "build": {
+      "resources": []
+    }
   }
 }
