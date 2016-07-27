@@ -1,30 +1,28 @@
 {
-  "name": "aurelia-notification",
-  "version": "1.0.0-rc5",
-  "description": "A simple notification service utilizing humane.js.",
+  "name": "aurelia-view-manager",
+  "version": "0.0.6",
+  "description": "A view manager for aurelia plugins. Add support for overriding views, and multiple frameworks",
   "keywords": [
+    "view",
+    "manager",
+    "custom",
+    "elements",
     "aurelia",
-    "plugin",
-    "humane",
-    "notification",
-    "growl"
+    "spoonx"
   ],
-  "homepage": "https://github.com/SpoonX/aurelia-notification",
-  "main": "dist/commonjs/aurelia-notification.js",
+  "homepage": "https://github.com/SpoonX/aurelia-view-manager",
+  "main": "dist/commonjs/aurelia-view-manager.js",
   "moduleType": "node",
   "license": "MIT",
-  "authors": [
-    "RWOverdijk <wesley@spoonx.nl> (http://spoonx.nl/)"
-  ],
+  "author": "SpoonX",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SpoonX/aurelia-notification"
+    "url": "https://github.com/SpoonX/aurelia-view-manager"
   },
   "dependencies": {
     "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
-    "aurelia-i18n": "^1.0.0-rc.1.0.0",
-    "aurelia-pal": "^1.0.0-rc.1.0.0",
-    "extend": "^3.0.0",
-    "humane-js": "^3.2.0"
+    "aurelia-logging": "^1.0.0-rc.1.0.0",
+    "aurelia-templating": "^1.0.0-rc.1.0.0",
+    "extend": "^3.0.0"
   }
 }
