@@ -27,7 +27,7 @@ export class ViewManager {
     let namespaceOrDefault  = Object.create(this.config.fetch(namespace));
     namespaceOrDefault.view = view;
 
-    let location            = namespaceOrDefault.map[view] || namespaceOrDefault.location;
+    let location            = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
 
     return render(location, namespaceOrDefault);
   }

@@ -1,7 +1,8 @@
 import extend from 'extend';
 import {getLogger} from 'aurelia-logging';
-import {inject,Container} from 'aurelia-dependency-injection';
-import {RelativeViewStrategy,useViewStrategy} from 'aurelia-templating';
+import {inject} from 'aurelia-dependency-injection';
+import {viewStrategy,useViewStrategy} from 'aurelia-templating';
+import {relativeToFile} from 'aurelia-path';
 
 export declare class Config {
   
@@ -63,6 +64,28 @@ export declare class ViewManager {
      * @returns {string} represents the path of the view
      */
   resolve(namespace?: any, view?: any): any;
+}
+
+/**
+* A view strategy that loads a view based on namespace and view name registered with the ViewManager
+*/
+export declare class ResolvedViewStrategy {
+  
+  /**
+    * Creates an instance of ResolvedViewStrategy.
+    * @param namespace The namespace of the view.
+    * @param view The name of the view.
+    */
+  constructor(namespace: string, view: string);
+  
+  /**
+    * Loads a view factory.
+    * @param viewEngine The view engine to use during the load process.
+    * @param compileInstruction Additional instructions to use during compilation of the view.
+    * @param loadContext The loading context used for loading all resources and dependencies.
+    * @return A promise for the view factory that is produced by this strategy.
+    */
+  loadViewFactory(viewEngine: ViewEngine, compileInstruction: ViewCompileInstruction, loadContext?: ResourceLoadContext): Promise<ViewFactory>;
 }
 
 /**

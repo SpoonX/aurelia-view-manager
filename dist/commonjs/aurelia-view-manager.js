@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ViewManager = exports.Config = undefined;
+exports.ResolvedViewStrategy = exports.ViewManager = exports.Config = undefined;
 
-var _dec, _class2;
+var _dec, _class2, _dec2, _class3;
 
 exports.configure = configure;
 exports.resolvedView = resolvedView;
@@ -19,6 +19,8 @@ var _aureliaLogging = require('aurelia-logging');
 var _aureliaDependencyInjection = require('aurelia-dependency-injection');
 
 var _aureliaTemplating = require('aurelia-templating');
+
+var _aureliaPath = require('aurelia-path');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45,15 +47,14 @@ var Config = exports.Config = function () {
   };
 
   Config.prototype.configureNamespace = function configureNamespace(name) {
-    var _config;
+    var _configure;
 
     var configs = arguments.length <= 1 || arguments[1] === undefined ? { map: {} } : arguments[1];
 
-    var namespace = Object.create(this.fetch(name));
-    var config = (_config = {}, _config[name] = namespace, _config);
-
+    var namespace = this.fetch(name);
     (0, _extend2.default)(true, namespace, configs);
-    this.configure(config);
+
+    this.configure((_configure = {}, _configure[name] = namespace, _configure));
 
     return this;
   };
@@ -110,7 +111,7 @@ var ViewManager = exports.ViewManager = (_dec = (0, _aureliaDependencyInjection.
     var namespaceOrDefault = Object.create(this.config.fetch(namespace));
     namespaceOrDefault.view = view;
 
-    var location = namespaceOrDefault.map[view] || namespaceOrDefault.location;
+    var location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
 
     return render(location, namespaceOrDefault);
   };
@@ -135,9 +136,24 @@ function render(template, data) {
   return result;
 }
 
-function resolvedView(namespace, view) {
-  var viewManager = _aureliaDependencyInjection.Container.instance.get(ViewManager);
-  var path = viewManager.resolve(namespace, view);
+var ResolvedViewStrategy = exports.ResolvedViewStrategy = (_dec2 = (0, _aureliaTemplating.viewStrategy)(), _dec2(_class3 = function () {
+  function ResolvedViewStrategy(namespace, view) {
+    
 
-  return (0, _aureliaTemplating.useViewStrategy)(new _aureliaTemplating.RelativeViewStrategy(path));
+    this.namespace = namespace;
+    this.view = view;
+  }
+
+  ResolvedViewStrategy.prototype.loadViewFactory = function loadViewFactory(viewEngine, compileInstruction, loadContext) {
+    var viewManager = viewEngine.container.get(ViewManager);
+    var path = viewManager.resolve(this.namespace, this.view);
+
+    compileInstruction.associatedModuleId = this.moduleId;
+    return viewEngine.loadViewFactory(this.moduleId ? (0, _aureliaPath.relativeToFile)(path, this.moduleId) : path, compileInstruction, loadContext);
+  };
+
+  return ResolvedViewStrategy;
+}()) || _class3);
+function resolvedView(namespace, view) {
+  return (0, _aureliaTemplating.useViewStrategy)(new ResolvedViewStrategy(namespace, view));
 }

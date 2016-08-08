@@ -1,3 +1,15 @@
+<a name="0.0.7"></a>
+# [0.0.7](https://github.com/SpoonX/aurelia-view-manager/compare/0.0.6...v0.0.7) (2016-08-08)
+
+
+### Bug Fixes
+
+* **config:** prevent unwanted garbage collection ([3d38d6f](https://github.com/SpoonX/aurelia-view-manager/commit/3d38d6f))
+* **resolved-view:** use ResolvedViewStrategy instead of Container.instance ([db85ea1](https://github.com/SpoonX/aurelia-view-manager/commit/db85ea1))
+* **view-manager:** default namespaceOrDefault.map to {} ([6b89858](https://github.com/SpoonX/aurelia-view-manager/commit/6b89858))
+
+
+
 <a name="0.0.6"></a>
 ## 0.0.6 (2016-07-27)
 
@@ -68,5 +80,3 @@
 #### Features
 
 * **project:** Added travis ([686fff21](https://github.com/SpoonX/aurelia-view-manager/commit/686fff21d42e40a2b6425cd3eefcd9972424adfc))
-
-

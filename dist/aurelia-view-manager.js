@@ -1,7 +1,8 @@
 import extend from 'extend';
 import {getLogger} from 'aurelia-logging';
-import {inject,Container} from 'aurelia-dependency-injection';
-import {RelativeViewStrategy,useViewStrategy} from 'aurelia-templating';
+import {inject} from 'aurelia-dependency-injection';
+import {viewStrategy,useViewStrategy} from 'aurelia-templating';
+import {relativeToFile} from 'aurelia-path';
 
 export class Config {
 
@@ -43,11 +44,10 @@ export class Config {
    * @returns {Config}
    */
   configureNamespace(name, configs = {map: {}}) {
-    let namespace = Object.create(this.fetch(name));
-    let config    = {[name]: namespace};
-
+    let namespace = this.fetch(name);
     extend(true, namespace, configs);
-    this.configure(config);
+
+    this.configure({[name]: namespace});
 
     return this;
   }
@@ -130,7 +130,7 @@ export class ViewManager {
     let namespaceOrDefault  = Object.create(this.config.fetch(namespace));
     namespaceOrDefault.view = view;
 
-    let location            = namespaceOrDefault.map[view] || namespaceOrDefault.location;
+    let location            = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
 
     return render(location, namespaceOrDefault);
   }
@@ -163,6 +163,37 @@ function render(template, data) {
 }
 
 /**
+* A view strategy that loads a view based on namespace and view name registered with the ViewManager
+*/
+@viewStrategy()
+export class ResolvedViewStrategy {
+  /**
+  * Creates an instance of ResolvedViewStrategy.
+  * @param namespace The namespace of the view.
+  * @param view The name of the view.
+  */
+  constructor(namespace: string, view: string) {
+    this.namespace = namespace;
+    this.view = view;
+  }
+
+  /**
+  * Loads a view factory.
+  * @param viewEngine The view engine to use during the load process.
+  * @param compileInstruction Additional instructions to use during compilation of the view.
+  * @param loadContext The loading context used for loading all resources and dependencies.
+  * @return A promise for the view factory that is produced by this strategy.
+  */
+  loadViewFactory(viewEngine: ViewEngine, compileInstruction: ViewCompileInstruction, loadContext?: ResourceLoadContext): Promise<ViewFactory> {
+    let viewManager = viewEngine.container.get(ViewManager);
+    let path        = viewManager.resolve(this.namespace, this.view);
+
+    compileInstruction.associatedModuleId = this.moduleId;
+    return viewEngine.loadViewFactory(this.moduleId ? relativeToFile(path, this.moduleId) : path, compileInstruction, loadContext);
+  }
+}
+
+/**
  * Decorates a custome element class in a way that it loads it's view from
  * elsewehere
  *
@@ -171,8 +202,5 @@ function render(template, data) {
  * @returns {function} that takes the target and sets the view strategy on the element
  */
 export function resolvedView(namespace, view) {
-  let viewManager = Container.instance.get(ViewManager);
-  let path        = viewManager.resolve(namespace, view);
-
-  return useViewStrategy(new RelativeViewStrategy(path));
+  return useViewStrategy(new ResolvedViewStrategy(namespace, view));
 }

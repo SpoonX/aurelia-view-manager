@@ -1,5 +1,4 @@
 import {resolvedView} from './../../src/decorators/resolved-view.js';
-import {ViewManager} from './../../src/view-manager';
 import {Container} from 'aurelia-dependency-injection';
 
 describe('resolvedView', () => {
@@ -10,13 +9,6 @@ describe('resolvedView', () => {
   beforeEach(() => {
     new Container().makeGlobal();
     fake = new Fake();
-  });
-
-  it('calls the resolve method', () => {
-    let viewManager = Container.instance.get(ViewManager);
-    spyOn(viewManager, 'resolve');
-    resolvedView('hello', 'world')(Fake);
-    expect(viewManager.resolve).toHaveBeenCalled();
   });
 
   xit('decorates the constructor', () => {

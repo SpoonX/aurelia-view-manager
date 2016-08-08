@@ -1,4 +1,5 @@
 import {Config} from '../../src/config';
+import extend from 'extend';
 
 describe('config', () => {
   let config;
@@ -27,7 +28,7 @@ describe('config', () => {
     };
     /* chainable */
     expect(config.configureNamespace('form', components)).toBe(config);
-    expect(config.fetch('form')).toEqual(components);
+    expect(config.fetch('form')).toEqual(extend({}, config.defaults, components));
   });
 
   it('can set defaults', () => {

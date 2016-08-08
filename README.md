@@ -11,21 +11,12 @@ s/nw.js.svg?maxAge=2592000?style=plastic)](https://gitter.im/SpoonX/Dev)
 
 ### Jspm/SytemJs
 
-Run `jspm i aurelia-view-manager` from your project root.
+Run `jspm i aurelia-view-manager` from your project root and add it to your bundle configuration.
 
-### Webpack
+### Webpack/Aurelia-cli
 
-Run `npm i aurelia-view-manager` from your project root.
+Run `npm i aurelia-view-manager --save` from your project root and add it to your bundle configuration.
 
-Aurelia-view-manager has submodules (currently only the authFilter). So you need to add it to the AureliaWebpackPlugin includeSubModules list.
-
-```js
-AureliaWebpackPlugin({
-    includeSubModules: [
-      { moduleId: 'aurelia-view-manager' }
-    ]
-  }),
-```
 
 ## Documentation
 
