@@ -1,5 +1,3 @@
-import {Container} from 'aurelia-dependency-injection';
-import {ViewManager} from './../view-manager';
 import {ResolvedViewStrategy} from './../resolved-view-strategy';
 import {useViewStrategy} from 'aurelia-templating';
 
