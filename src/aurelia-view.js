@@ -1,11 +1,12 @@
 import {Config} from './config';
 import {getLogger} from 'aurelia-logging';
 
-export function configure(aurelia, configCallback) {
+export function configure(aurelia, configOrConfigure) {
+  let config = aurelia.container.get(Config);
+
   if (typeof configCallback === 'function') {
-    let config = aurelia.container.get(Config);
-    configCallback(config);
-  } else if (configCallback) {
-    getLogger('aurelia-view').warn('config takes a function');
-  }
+    return configOrConfigure(config);
+  } 
+  
+  config.configure(configOrConfigure);
 }
