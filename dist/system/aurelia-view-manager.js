@@ -1,11 +1,22 @@
 'use strict';
 
-System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'aurelia-templating', 'aurelia-path'], function (_export, _context) {
+System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating', 'aurelia-path'], function (_export, _context) {
   "use strict";
 
-  var extend, getLogger, inject, viewStrategy, useViewStrategy, relativeToFile, _dec, _class2, _dec2, _class3, Config, ViewManager, ResolvedViewStrategy;
+  var extend, inject, viewStrategy, useViewStrategy, relativeToFile, _dec, _class2, _dec2, _class3, Config, ViewManager, ResolvedViewStrategy;
 
   
+
+  function configure(aurelia, configOrConfigure) {
+    var config = aurelia.container.get(Config);
+
+    if (typeof configCallback === 'function') {
+      return configOrConfigure(config);
+    }
+    config.configure(configOrConfigure);
+  }
+
+  _export('configure', configure);
 
   function render(template, data) {
     var result = template;
@@ -24,11 +35,15 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
     return result;
   }
 
+  function resolvedView(namespace, view) {
+    return useViewStrategy(new ResolvedViewStrategy(namespace, view));
+  }
+
+  _export('resolvedView', resolvedView);
+
   return {
     setters: [function (_extend) {
       extend = _extend.default;
-    }, function (_aureliaLogging) {
-      getLogger = _aureliaLogging.getLogger;
     }, function (_aureliaDependencyInjection) {
       inject = _aureliaDependencyInjection.inject;
     }, function (_aureliaTemplating) {
@@ -83,9 +98,10 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
           }
 
           var result = this.namespaces;
+          var args = Array.from(arguments);
 
-          for (var index in arguments) {
-            var key = arguments[index];
+          for (var index in args) {
+            var key = args[index];
             var value = result[key];
             if (!value) {
               return value;
@@ -100,17 +116,6 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
       }());
 
       _export('Config', Config);
-
-      function configure(aurelia, configCallback) {
-        if (typeof configCallback === 'function') {
-          var config = aurelia.container.get(Config);
-          configCallback(config);
-        } else if (configCallback) {
-          getLogger('aurelia-view').warn('config takes a function');
-        }
-      }
-
-      _export('configure', configure);
 
       _export('ViewManager', ViewManager = (_dec = inject(Config), _dec(_class2 = function () {
         function ViewManager(config) {
@@ -157,12 +162,6 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
       }()) || _class3));
 
       _export('ResolvedViewStrategy', ResolvedViewStrategy);
-
-      function resolvedView(namespace, view) {
-        return useViewStrategy(new ResolvedViewStrategy(namespace, view));
-      }
-
-      _export('resolvedView', resolvedView);
     }
   };
 });
