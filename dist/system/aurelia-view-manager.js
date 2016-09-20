@@ -7,6 +7,18 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
 
   
 
+  function configure(aurelia, configOrConfigure) {
+    var config = aurelia.container.get(Config);
+
+    if (typeof configCallback === 'function') {
+      return configOrConfigure(config);
+    }
+
+    config.configure(configOrConfigure);
+  }
+
+  _export('configure', configure);
+
   function render(template, data) {
     var result = template;
 
@@ -23,6 +35,12 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
 
     return result;
   }
+
+  function resolvedView(namespace, view) {
+    return useViewStrategy(new ResolvedViewStrategy(namespace, view));
+  }
+
+  _export('resolvedView', resolvedView);
 
   return {
     setters: [function (_extend) {
@@ -83,9 +101,10 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
           }
 
           var result = this.namespaces;
+          var args = Array.from(arguments);
 
-          for (var index in arguments) {
-            var key = arguments[index];
+          for (var index in args) {
+            var key = args[index];
             var value = result[key];
             if (!value) {
               return value;
@@ -100,17 +119,6 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
       }());
 
       _export('Config', Config);
-
-      function configure(aurelia, configCallback) {
-        if (typeof configCallback === 'function') {
-          var config = aurelia.container.get(Config);
-          configCallback(config);
-        } else if (configCallback) {
-          getLogger('aurelia-view').warn('config takes a function');
-        }
-      }
-
-      _export('configure', configure);
 
       _export('ViewManager', ViewManager = (_dec = inject(Config), _dec(_class2 = function () {
         function ViewManager(config) {
@@ -157,12 +165,6 @@ System.register(['extend', 'aurelia-logging', 'aurelia-dependency-injection', 'a
       }()) || _class3));
 
       _export('ResolvedViewStrategy', ResolvedViewStrategy);
-
-      function resolvedView(namespace, view) {
-        return useViewStrategy(new ResolvedViewStrategy(namespace, view));
-      }
-
-      _export('resolvedView', resolvedView);
     }
   };
 });

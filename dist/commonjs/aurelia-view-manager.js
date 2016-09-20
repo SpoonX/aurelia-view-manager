@@ -71,9 +71,10 @@ var Config = exports.Config = function () {
     }
 
     var result = this.namespaces;
+    var args = Array.from(arguments);
 
-    for (var index in arguments) {
-      var key = arguments[index];
+    for (var index in args) {
+      var key = args[index];
       var value = result[key];
       if (!value) {
         return value;
@@ -87,13 +88,14 @@ var Config = exports.Config = function () {
   return Config;
 }();
 
-function configure(aurelia, configCallback) {
+function configure(aurelia, configOrConfigure) {
+  var config = aurelia.container.get(Config);
+
   if (typeof configCallback === 'function') {
-    var config = aurelia.container.get(Config);
-    configCallback(config);
-  } else if (configCallback) {
-    (0, _aureliaLogging.getLogger)('aurelia-view').warn('config takes a function');
+    return configOrConfigure(config);
   }
+
+  config.configure(configOrConfigure);
 }
 
 var ViewManager = exports.ViewManager = (_dec = (0, _aureliaDependencyInjection.inject)(Config), _dec(_class2 = function () {
