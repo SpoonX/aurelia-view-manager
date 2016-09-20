@@ -1,5 +1,4 @@
 import extend from 'extend';
-import {getLogger} from 'aurelia-logging';
 import {inject} from 'aurelia-dependency-injection';
 import {viewStrategy,useViewStrategy} from 'aurelia-templating';
 import {relativeToFile} from 'aurelia-path';
@@ -50,7 +49,7 @@ export declare class Config {
      */
   fetch(properties?: any): any;
 }
-export declare function configure(aurelia?: any, configCallback?: any): any;
+export declare function configure(aurelia?: any, configOrConfigure?: any): any;
 export declare class ViewManager {
   constructor(config?: any);
   
