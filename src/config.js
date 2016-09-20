@@ -77,9 +77,10 @@ export class Config {
     }
 
     let result = this.namespaces;
+    let args = Array.from(arguments);
 
-    for (let index in arguments) {
-      let key   = arguments[index];
+    for (let index in args) {
+      let key   = args[index];
       let value = result[key];
       if (!value) {
         return value;
