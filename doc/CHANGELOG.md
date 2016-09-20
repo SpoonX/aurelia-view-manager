@@ -1,3 +1,18 @@
+<a name="0.0.8"></a>
+## [0.0.8](https://github.com/SpoonX/aurelia-view-manager/compare/0.0.7...v0.0.8) (2016-09-20)
+
+
+### Bug Fixes
+
+* **fetch_config:** Make sure arguments is an array ([a71c64d](https://github.com/SpoonX/aurelia-view-manager/commit/a71c64d))
+
+
+### Features
+
+* **project:** allow configuration with an object ([4a521ce](https://github.com/SpoonX/aurelia-view-manager/commit/4a521ce))
+
+
+
 <a name="0.0.7"></a>
 # [0.0.7](https://github.com/SpoonX/aurelia-view-manager/compare/0.0.6...v0.0.7) (2016-08-08)
 

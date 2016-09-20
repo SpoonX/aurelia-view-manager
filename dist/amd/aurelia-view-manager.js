@@ -1,4 +1,4 @@
-define(['exports', 'extend', 'aurelia-logging', 'aurelia-dependency-injection', 'aurelia-templating', 'aurelia-path'], function (exports, _extend, _aureliaLogging, _aureliaDependencyInjection, _aureliaTemplating, _aureliaPath) {
+define(['exports', 'extend', 'aurelia-dependency-injection', 'aurelia-templating', 'aurelia-path'], function (exports, _extend, _aureliaDependencyInjection, _aureliaTemplating, _aureliaPath) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -65,9 +65,10 @@ define(['exports', 'extend', 'aurelia-logging', 'aurelia-dependency-injection', 
       }
 
       var result = this.namespaces;
+      var args = Array.from(arguments);
 
-      for (var index in arguments) {
-        var key = arguments[index];
+      for (var index in args) {
+        var key = args[index];
         var value = result[key];
         if (!value) {
           return value;
@@ -81,13 +82,13 @@ define(['exports', 'extend', 'aurelia-logging', 'aurelia-dependency-injection', 
     return Config;
   }();
 
-  function configure(aurelia, configCallback) {
+  function configure(aurelia, configOrConfigure) {
+    var config = aurelia.container.get(Config);
+
     if (typeof configCallback === 'function') {
-      var config = aurelia.container.get(Config);
-      configCallback(config);
-    } else if (configCallback) {
-      (0, _aureliaLogging.getLogger)('aurelia-view').warn('config takes a function');
+      return configOrConfigure(config);
     }
+    config.configure(configOrConfigure);
   }
 
   var ViewManager = exports.ViewManager = (_dec = (0, _aureliaDependencyInjection.inject)(Config), _dec(_class2 = function () {

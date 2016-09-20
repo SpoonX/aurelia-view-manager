@@ -1,5 +1,4 @@
 import extend from 'extend';
-import {getLogger} from 'aurelia-logging';
 import {inject} from 'aurelia-dependency-injection';
 import {viewStrategy,useViewStrategy} from 'aurelia-templating';
 import {relativeToFile} from 'aurelia-path';
@@ -81,9 +80,10 @@ export class Config {
     }
 
     let result = this.namespaces;
+    let args   = Array.from(arguments);
 
-    for (let index in arguments) {
-      let key   = arguments[index];
+    for (let index in args) {
+      let key   = args[index];
       let value = result[key];
       if (!value) {
         return value;
@@ -95,13 +95,13 @@ export class Config {
   }
 }
 
-export function configure(aurelia, configCallback) {
+export function configure(aurelia, configOrConfigure) {
+  let config = aurelia.container.get(Config);
+
   if (typeof configCallback === 'function') {
-    let config = aurelia.container.get(Config);
-    configCallback(config);
-  } else if (configCallback) {
-    getLogger('aurelia-view').warn('config takes a function');
+    return configOrConfigure(config);
   }
+  config.configure(configOrConfigure);
 }
 
 @inject(Config)
