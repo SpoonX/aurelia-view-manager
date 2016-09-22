@@ -47,6 +47,12 @@ describe('ViewManager', () => {
   it('resolves a re-mapped view', () => {
     config.configureNamespace('namespace', {
       map: {
+        text: 'output.html'
+      }
+    });
+
+    config.configureNamespace('namespace', {
+      map: {
         text: 'input.html'
       }
     });
