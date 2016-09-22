@@ -7,17 +7,6 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
 
   
 
-  function configure(aurelia, configOrConfigure) {
-    var config = aurelia.container.get(Config);
-
-    if (typeof configCallback === 'function') {
-      return configOrConfigure(config);
-    }
-    config.configure(configOrConfigure);
-  }
-
-  _export('configure', configure);
-
   function render(template, data) {
     var result = template;
 
@@ -34,12 +23,6 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
 
     return result;
   }
-
-  function resolvedView(namespace, view) {
-    return useViewStrategy(new ResolvedViewStrategy(namespace, view));
-  }
-
-  _export('resolvedView', resolvedView);
 
   return {
     setters: [function (_extend) {
@@ -117,6 +100,17 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
 
       _export('Config', Config);
 
+      function configure(aurelia, configOrConfigure) {
+        var config = aurelia.container.get(Config);
+
+        if (typeof configOrConfigure === 'function') {
+          return configOrConfigure(config);
+        }
+        config.configure(configOrConfigure);
+      }
+
+      _export('configure', configure);
+
       _export('ViewManager', ViewManager = (_dec = inject(Config), _dec(_class2 = function () {
         function ViewManager(config) {
           
@@ -162,6 +156,12 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
       }()) || _class3));
 
       _export('ResolvedViewStrategy', ResolvedViewStrategy);
+
+      function resolvedView(namespace, view) {
+        return useViewStrategy(new ResolvedViewStrategy(namespace, view));
+      }
+
+      _export('resolvedView', resolvedView);
     }
   };
 });

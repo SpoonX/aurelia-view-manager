@@ -63,7 +63,7 @@ export let Config = class Config {
 export function configure(aurelia, configOrConfigure) {
   let config = aurelia.container.get(Config);
 
-  if (typeof configCallback === 'function') {
+  if (typeof configOrConfigure === 'function') {
     return configOrConfigure(config);
   }
   config.configure(configOrConfigure);
