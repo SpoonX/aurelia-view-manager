@@ -35,13 +35,13 @@ Now that we have a namespace we can start configuring.
 ```
 
 We are not setting the framework. There is a `default` namespace which contains
-the framework. This cases the `spoonx/modal` configurations to default to the
+the framework. This causes the `spoonx/modal` configurations to default to the
 framework property's value of the `defaults` framework. Users of your plugin
 now only have to set the framework property of the `defaults` configurations to
 'bootstrap' and it will load the view that matches the map.modal "path
 template"
 
-## 3 Decorate your custom elements with `@resolvedView` or use**
+## 3 Decorate your custom elements with `@resolvedView`
 
 ```js
     @resolvedView('spoonx/modal', 'modal')
