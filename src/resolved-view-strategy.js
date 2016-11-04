@@ -28,6 +28,7 @@ export class ResolvedViewStrategy {
     let path        = viewManager.resolve(this.namespace, this.view);
 
     compileInstruction.associatedModuleId = this.moduleId;
+
     return viewEngine.loadViewFactory(this.moduleId ? relativeToFile(path, this.moduleId) : path, compileInstruction, loadContext);
   }
 }
