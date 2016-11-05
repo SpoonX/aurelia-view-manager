@@ -25,9 +25,10 @@ export class ViewManager {
     }
 
     let namespaceOrDefault  = Object.create(this.config.fetch(namespace));
+
     namespaceOrDefault.view = view;
 
-    let location            = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
+    let location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
 
     return render(location, namespaceOrDefault);
   }
@@ -44,10 +45,11 @@ export class ViewManager {
 function render(template, data) {
   let result = template;
 
-  for (let key in data) {
+  for (let key in data) {  //eslint-disable-line guard-for-in
     let regexString = ['{{', key, '}}'].join('');
     let regex       = new RegExp(regexString, 'g');
     let value       = data[key];
+
     result          = result.replace(regex, value);
   }
 

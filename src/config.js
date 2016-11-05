@@ -4,9 +4,9 @@ export class Config {
 
   /* these can be overwritten with the configureDefaults function */
   defaults = {
-    location: '{{framework}}/{{view}}.html',
+    location : '{{framework}}/{{view}}.html',
     framework: 'bootstrap',
-    map: {}
+    map      : {}
   };
 
   /* stores the namespaced configs */
@@ -41,6 +41,7 @@ export class Config {
    */
   configureNamespace(name, configs = {map: {}}) {
     let namespace = this.fetch(name);
+
     extend(true, namespace, configs);
 
     this.configure({[name]: namespace});
@@ -77,11 +78,15 @@ export class Config {
     }
 
     let result = this.namespaces;
-    let args   = Array.from(arguments);
+    let args   = Array.from(arguments); // eslint-disable-line prefer-rest-params
 
     for (let index in args) {
+      if (!args.hasOwnProperty(index)) {
+        continue;
+      }
       let key   = args[index];
       let value = result[key];
+
       if (!value) {
         return value;
       }
