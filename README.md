@@ -19,7 +19,7 @@ Following plugins need an installation of aurelia-view-manager:
 
 ### Aurelia-cli
 
-Run `npm i aurelia-view-manager--save` from your project root.
+Run `npm i aurelia-view-manager --save` from your project root.
 
 Aurelia-view-manager uses [extend](https://www.npmjs.com/package/extend), so add the following to the `build.bundles.dependencies` section of `aurelia-project/aurelia.json`:
 
