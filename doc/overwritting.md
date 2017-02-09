@@ -21,7 +21,8 @@ name.
 
 That is how you would overwrite the view of a plugin which you have installed.
 
-**note**
+**gotcha**
+
 Do make sure that the order in which you perform configurations is correct.
 If the aurelia-form plugin is registered at a later moment in time, it will
 overwrite the date property back to aurelia-form's defaults.
