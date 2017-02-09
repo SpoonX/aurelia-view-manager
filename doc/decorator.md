@@ -18,10 +18,7 @@ will be using the view you told it to use.
     export function configure(app) {
       let viewManagerConfig = app.container.get(ViewManagerConfig);
       viewManagerConfig.configureNamespace('spoonx/modal', {
-        base: './views/{{framework}}',
-        map: {
-          modal: '{{base}}/{{view}}.html'
-        }
+        location: './views/{{framework}}/{{view}}.html'
       });
     }
 

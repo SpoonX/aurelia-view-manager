@@ -3,6 +3,7 @@
 * [Introduction](README.md)
 * [Installation](installation.md)
 * [Usage](usage.md)
+* [Configuration](configuration.md)
 * [Decorator](decorator.md)
 * [Defaults](defaults.md)
 * [Overwritting](overwritting.md)

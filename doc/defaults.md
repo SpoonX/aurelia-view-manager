@@ -6,16 +6,41 @@ this namespace are used by other namespaces when the other namespaces do not
 have that property defined on them. Understanding this is essential if you want
 to keep your configurations concise.
 
-> We are going to change the default location view manager is going to resolve
-> to and we are going to define some default properties..
+The following defaults are defined in the `defaults` namespace.
 
 ```js
-    viewManagerConfig.configureNamespace('defaults', {
-      device: getDeviceType(),
-      permissions: 'user'
-    });
+{
+  location : '{{framework}}/{{view}}.html',
+  framework: 'bootstrap',
+  map      : {}
+}
 ```
 
-For all namespace configurations that do not have a device specified on their
-configurations aurelia-view-manager will user the ones defined in the defaults.
-If these are also not defined it will return the javascript `undefined`.
+Without having altered the configurations at all, let's see what path the
+following would resolve to.
+
+> The `viewManager` in this example is an injected instance of the ViewManager class.
+
+```js
+
+  viewManager.resolve('my/namespace', 'hello-world') === 'bootstrap/hello-world.html' // => true;
+
+```
+
+Now let's overwrite some configurations and see how we can alter the path.
+
+```js
+  viewManagerConfig.configureNamespace('defaults', {
+    location: 'views/{{framework}}/{{view}}.html',
+    device  : 'mobile'
+  });
+
+  viewManager.resolve('my/namespace', 'hello-world') === 'views/bootstrap/hello-world.html' // => true;
+```
+
+## Conclusion
+
+Defaults are used whenever the namespace is not configured.
+
+It's possible to overwrite the default defaults so it follows your project's
+conventions.

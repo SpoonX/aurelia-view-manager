@@ -31,7 +31,7 @@ elements load the device specific views.
     });
 ```
 
-The view manager will now look in the `desktop` folder for it's templates. It
+The view manager will now look in the `mobile` folder for it's templates. It
 does not trigger a reload. Only components that are loaded afterward will start
 loading the views that correspond with the altered configurations.
 
