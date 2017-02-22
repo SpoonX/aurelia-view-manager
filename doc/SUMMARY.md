@@ -6,6 +6,6 @@
 * [Configuration](configuration.md)
 * [Decorator](decorator.md)
 * [Defaults](defaults.md)
-* [Overwritting](overwritting.md)
+* [Overwriting](overwriting.md)
 * [Changelog](CHANGELOG.md)
 * [License](license.md)
