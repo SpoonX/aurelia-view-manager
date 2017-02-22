@@ -6,7 +6,7 @@
     ],
     "pluginsConfig": {
         "edit-link": {
-            "base": "https://github.com/SpoonX/aurelia-view-manager-docs/edit/master/doc",
+            "base": "https://github.com/SpoonX/aurelia-view-manager/edit/master/doc",
             "label": "Edit This Page"
         },
         "github": {
