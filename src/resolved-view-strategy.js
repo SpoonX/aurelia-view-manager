@@ -1,5 +1,5 @@
 import {ViewManager} from './view-manager';
-import {viewStrategy} from 'aurelia-templating';
+import {viewStrategy, ViewEngine, ViewCompileInstruction, ResourceLoadContext, ViewFactory} from 'aurelia-templating';
 import {relativeToFile} from 'aurelia-path';
 /**
 * A view strategy that loads a view based on namespace and view name registered with the ViewManager
