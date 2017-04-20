@@ -1,3 +1,15 @@
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/SpoonX/aurelia-view-manager/compare/0.1.0...v0.1.1) (2017-04-20)
+
+
+### Bug Fixes
+
+* **doc-readme:** minor typo ([474fbb9](https://github.com/SpoonX/aurelia-view-manager/commit/474fbb9))
+* **dts:** add missing type imports ([66258ff](https://github.com/SpoonX/aurelia-view-manager/commit/66258ff))
+* **readme:** small text misspell ([ec2f7c4](https://github.com/SpoonX/aurelia-view-manager/commit/ec2f7c4))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/SpoonX/aurelia-view-manager/compare/0.0.7...v0.1.0) (2016-10-04)
 

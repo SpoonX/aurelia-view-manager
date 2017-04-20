@@ -1,6 +1,5 @@
-import extend from 'extend';
 import {inject} from 'aurelia-dependency-injection';
-import {viewStrategy,useViewStrategy} from 'aurelia-templating';
+import {viewStrategy,ViewEngine,ViewCompileInstruction,ResourceLoadContext,ViewFactory,useViewStrategy} from 'aurelia-templating';
 import {relativeToFile} from 'aurelia-path';
 
 export declare class Config {
@@ -88,10 +87,10 @@ export declare class ResolvedViewStrategy {
 }
 
 /**
- * Decorates a custome element class in a way that it loads it's view from
- * elsewehere
+ * Decorates a custom element class in a way that it loads it's view from
+ * elsewhere
  *
- * @param {string} namespace used to seperate different view configurations
+ * @param {string} namespace used to separate different view configurations
  * @param {string} view used to find the value that belongs to the view
  * @returns {function} that takes the target and sets the view strategy on the element
  */

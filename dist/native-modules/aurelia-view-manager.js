@@ -1,13 +1,28 @@
+'use strict';
+
+exports.__esModule = true;
+exports.ResolvedViewStrategy = exports.ViewManager = exports.Config = undefined;
+
 var _dec, _class2, _dec2, _class3;
 
+exports.configure = configure;
+exports.resolvedView = resolvedView;
+
+var _extend = require('extend');
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _aureliaDependencyInjection = require('aurelia-dependency-injection');
+
+var _aureliaTemplating = require('aurelia-templating');
+
+var _aureliaPath = require('aurelia-path');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 
-import extend from 'extend';
-import { inject } from 'aurelia-dependency-injection';
-import { viewStrategy, useViewStrategy } from 'aurelia-templating';
-import { relativeToFile } from 'aurelia-path';
 
-export var Config = function () {
+var Config = exports.Config = function () {
   function Config() {
     
 
@@ -22,7 +37,7 @@ export var Config = function () {
   }
 
   Config.prototype.configureDefaults = function configureDefaults(configs) {
-    extend(true, this.defaults, configs);
+    (0, _extend2.default)(true, this.defaults, configs);
 
     return this;
   };
@@ -30,10 +45,11 @@ export var Config = function () {
   Config.prototype.configureNamespace = function configureNamespace(name) {
     var _configure;
 
-    var configs = arguments.length <= 1 || arguments[1] === undefined ? { map: {} } : arguments[1];
+    var configs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { map: {} };
 
     var namespace = this.fetch(name);
-    extend(true, namespace, configs);
+
+    (0, _extend2.default)(true, namespace, configs);
 
     this.configure((_configure = {}, _configure[name] = namespace, _configure));
 
@@ -41,7 +57,7 @@ export var Config = function () {
   };
 
   Config.prototype.configure = function configure(config) {
-    extend(true, this.namespaces, config);
+    (0, _extend2.default)(true, this.namespaces, config);
 
     return this;
   };
@@ -55,8 +71,12 @@ export var Config = function () {
     var args = Array.from(arguments);
 
     for (var index in args) {
+      if (!args.hasOwnProperty(index)) {
+        continue;
+      }
       var key = args[index];
       var value = result[key];
+
       if (!value) {
         return value;
       }
@@ -69,7 +89,7 @@ export var Config = function () {
   return Config;
 }();
 
-export function configure(aurelia, configOrConfigure) {
+function configure(aurelia, configOrConfigure) {
   var config = aurelia.container.get(Config);
 
   if (typeof configOrConfigure === 'function') {
@@ -78,7 +98,7 @@ export function configure(aurelia, configOrConfigure) {
   config.configure(configOrConfigure);
 }
 
-export var ViewManager = (_dec = inject(Config), _dec(_class2 = function () {
+var ViewManager = exports.ViewManager = (_dec = (0, _aureliaDependencyInjection.inject)(Config), _dec(_class2 = function () {
   function ViewManager(config) {
     
 
@@ -91,6 +111,7 @@ export var ViewManager = (_dec = inject(Config), _dec(_class2 = function () {
     }
 
     var namespaceOrDefault = Object.create(this.config.fetch(namespace));
+
     namespaceOrDefault.view = view;
 
     var location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
@@ -108,6 +129,7 @@ function render(template, data) {
     var regexString = ['{{', key, '}}'].join('');
     var regex = new RegExp(regexString, 'g');
     var value = data[key];
+
     result = result.replace(regex, value);
   }
 
@@ -118,7 +140,7 @@ function render(template, data) {
   return result;
 }
 
-export var ResolvedViewStrategy = (_dec2 = viewStrategy(), _dec2(_class3 = function () {
+var ResolvedViewStrategy = exports.ResolvedViewStrategy = (_dec2 = (0, _aureliaTemplating.viewStrategy)(), _dec2(_class3 = function () {
   function ResolvedViewStrategy(namespace, view) {
     
 
@@ -131,12 +153,12 @@ export var ResolvedViewStrategy = (_dec2 = viewStrategy(), _dec2(_class3 = funct
     var path = viewManager.resolve(this.namespace, this.view);
 
     compileInstruction.associatedModuleId = this.moduleId;
-    return viewEngine.loadViewFactory(this.moduleId ? relativeToFile(path, this.moduleId) : path, compileInstruction, loadContext);
+
+    return viewEngine.loadViewFactory(this.moduleId ? (0, _aureliaPath.relativeToFile)(path, this.moduleId) : path, compileInstruction, loadContext);
   };
 
   return ResolvedViewStrategy;
 }()) || _class3);
-
-export function resolvedView(namespace, view) {
-  return useViewStrategy(new ResolvedViewStrategy(namespace, view));
+function resolvedView(namespace, view) {
+  return (0, _aureliaTemplating.useViewStrategy)(new ResolvedViewStrategy(namespace, view));
 }

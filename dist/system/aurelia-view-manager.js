@@ -3,9 +3,20 @@
 System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating', 'aurelia-path'], function (_export, _context) {
   "use strict";
 
-  var extend, inject, viewStrategy, useViewStrategy, relativeToFile, _dec, _class2, _dec2, _class3, Config, ViewManager, ResolvedViewStrategy;
+  var extend, inject, viewStrategy, ViewEngine, ViewCompileInstruction, ResourceLoadContext, ViewFactory, useViewStrategy, relativeToFile, _dec, _class2, _dec2, _class3, Config, ViewManager, ResolvedViewStrategy;
 
   
+
+  function configure(aurelia, configOrConfigure) {
+    var config = aurelia.container.get(Config);
+
+    if (typeof configOrConfigure === 'function') {
+      return configOrConfigure(config);
+    }
+    config.configure(configOrConfigure);
+  }
+
+  _export('configure', configure);
 
   function render(template, data) {
     var result = template;
@@ -14,6 +25,7 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
       var regexString = ['{{', key, '}}'].join('');
       var regex = new RegExp(regexString, 'g');
       var value = data[key];
+
       result = result.replace(regex, value);
     }
 
@@ -24,6 +36,12 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
     return result;
   }
 
+  function resolvedView(namespace, view) {
+    return useViewStrategy(new ResolvedViewStrategy(namespace, view));
+  }
+
+  _export('resolvedView', resolvedView);
+
   return {
     setters: [function (_extend) {
       extend = _extend.default;
@@ -31,6 +49,10 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
       inject = _aureliaDependencyInjection.inject;
     }, function (_aureliaTemplating) {
       viewStrategy = _aureliaTemplating.viewStrategy;
+      ViewEngine = _aureliaTemplating.ViewEngine;
+      ViewCompileInstruction = _aureliaTemplating.ViewCompileInstruction;
+      ResourceLoadContext = _aureliaTemplating.ResourceLoadContext;
+      ViewFactory = _aureliaTemplating.ViewFactory;
       useViewStrategy = _aureliaTemplating.useViewStrategy;
     }, function (_aureliaPath) {
       relativeToFile = _aureliaPath.relativeToFile;
@@ -59,9 +81,10 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
         Config.prototype.configureNamespace = function configureNamespace(name) {
           var _configure;
 
-          var configs = arguments.length <= 1 || arguments[1] === undefined ? { map: {} } : arguments[1];
+          var configs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { map: {} };
 
           var namespace = this.fetch(name);
+
           extend(true, namespace, configs);
 
           this.configure((_configure = {}, _configure[name] = namespace, _configure));
@@ -84,8 +107,12 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
           var args = Array.from(arguments);
 
           for (var index in args) {
+            if (!args.hasOwnProperty(index)) {
+              continue;
+            }
             var key = args[index];
             var value = result[key];
+
             if (!value) {
               return value;
             }
@@ -100,17 +127,6 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
 
       _export('Config', Config);
 
-      function configure(aurelia, configOrConfigure) {
-        var config = aurelia.container.get(Config);
-
-        if (typeof configOrConfigure === 'function') {
-          return configOrConfigure(config);
-        }
-        config.configure(configOrConfigure);
-      }
-
-      _export('configure', configure);
-
       _export('ViewManager', ViewManager = (_dec = inject(Config), _dec(_class2 = function () {
         function ViewManager(config) {
           
@@ -124,6 +140,7 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
           }
 
           var namespaceOrDefault = Object.create(this.config.fetch(namespace));
+
           namespaceOrDefault.view = view;
 
           var location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
@@ -149,6 +166,7 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
           var path = viewManager.resolve(this.namespace, this.view);
 
           compileInstruction.associatedModuleId = this.moduleId;
+
           return viewEngine.loadViewFactory(this.moduleId ? relativeToFile(path, this.moduleId) : path, compileInstruction, loadContext);
         };
 
@@ -156,12 +174,6 @@ System.register(['extend', 'aurelia-dependency-injection', 'aurelia-templating',
       }()) || _class3));
 
       _export('ResolvedViewStrategy', ResolvedViewStrategy);
-
-      function resolvedView(namespace, view) {
-        return useViewStrategy(new ResolvedViewStrategy(namespace, view));
-      }
-
-      _export('resolvedView', resolvedView);
     }
   };
 });

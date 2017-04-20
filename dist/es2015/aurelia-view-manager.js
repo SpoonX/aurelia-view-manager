@@ -2,7 +2,7 @@ var _dec, _class2, _dec2, _class3;
 
 import extend from 'extend';
 import { inject } from 'aurelia-dependency-injection';
-import { viewStrategy, useViewStrategy } from 'aurelia-templating';
+import { viewStrategy, ViewEngine, ViewCompileInstruction, ResourceLoadContext, ViewFactory, useViewStrategy } from 'aurelia-templating';
 import { relativeToFile } from 'aurelia-path';
 
 export let Config = class Config {
@@ -26,6 +26,7 @@ export let Config = class Config {
 
   configureNamespace(name, configs = { map: {} }) {
     let namespace = this.fetch(name);
+
     extend(true, namespace, configs);
 
     this.configure({ [name]: namespace });
@@ -48,8 +49,12 @@ export let Config = class Config {
     let args = Array.from(arguments);
 
     for (let index in args) {
+      if (!args.hasOwnProperty(index)) {
+        continue;
+      }
       let key = args[index];
       let value = result[key];
+
       if (!value) {
         return value;
       }
@@ -77,10 +82,11 @@ export let ViewManager = (_dec = inject(Config), _dec(_class2 = class ViewManage
 
   resolve(namespace, view) {
     if (!namespace || !view) {
-      throw new Error(`Cannot resolve without namespace and view. Got namespace "${ namespace }" and view "${ view }" in stead`);
+      throw new Error(`Cannot resolve without namespace and view. Got namespace "${namespace}" and view "${view}" in stead`);
     }
 
     let namespaceOrDefault = Object.create(this.config.fetch(namespace));
+
     namespaceOrDefault.view = view;
 
     let location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
@@ -96,6 +102,7 @@ function render(template, data) {
     let regexString = ['{{', key, '}}'].join('');
     let regex = new RegExp(regexString, 'g');
     let value = data[key];
+
     result = result.replace(regex, value);
   }
 
@@ -117,6 +124,7 @@ export let ResolvedViewStrategy = (_dec2 = viewStrategy(), _dec2(_class3 = class
     let path = viewManager.resolve(this.namespace, this.view);
 
     compileInstruction.associatedModuleId = this.moduleId;
+
     return viewEngine.loadViewFactory(this.moduleId ? relativeToFile(path, this.moduleId) : path, compileInstruction, loadContext);
   }
 }) || _class3);

@@ -1,15 +1,16 @@
 import extend from 'extend';
 import {inject} from 'aurelia-dependency-injection';
-import {viewStrategy,useViewStrategy} from 'aurelia-templating';
+import {viewStrategy,ViewEngine,ViewCompileInstruction,ResourceLoadContext,ViewFactory,useViewStrategy} from 'aurelia-templating';
 import {relativeToFile} from 'aurelia-path';
+
 
 export class Config {
 
   /* these can be overwritten with the configureDefaults function */
   defaults = {
-    location: '{{framework}}/{{view}}.html',
+    location : '{{framework}}/{{view}}.html',
     framework: 'bootstrap',
-    map: {}
+    map      : {}
   };
 
   /* stores the namespaced configs */
@@ -44,6 +45,7 @@ export class Config {
    */
   configureNamespace(name, configs = {map: {}}) {
     let namespace = this.fetch(name);
+
     extend(true, namespace, configs);
 
     this.configure({[name]: namespace});
@@ -80,11 +82,15 @@ export class Config {
     }
 
     let result = this.namespaces;
-    let args   = Array.from(arguments);
+    let args   = Array.from(arguments); // eslint-disable-line prefer-rest-params
 
     for (let index in args) {
+      if (!args.hasOwnProperty(index)) {
+        continue;
+      }
       let key   = args[index];
       let value = result[key];
+
       if (!value) {
         return value;
       }
@@ -128,9 +134,10 @@ export class ViewManager {
     }
 
     let namespaceOrDefault  = Object.create(this.config.fetch(namespace));
+
     namespaceOrDefault.view = view;
 
-    let location            = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
+    let location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
 
     return render(location, namespaceOrDefault);
   }
@@ -147,10 +154,11 @@ export class ViewManager {
 function render(template, data) {
   let result = template;
 
-  for (let key in data) {
+  for (let key in data) {  //eslint-disable-line guard-for-in
     let regexString = ['{{', key, '}}'].join('');
     let regex       = new RegExp(regexString, 'g');
     let value       = data[key];
+
     result          = result.replace(regex, value);
   }
 
@@ -189,15 +197,16 @@ export class ResolvedViewStrategy {
     let path        = viewManager.resolve(this.namespace, this.view);
 
     compileInstruction.associatedModuleId = this.moduleId;
+
     return viewEngine.loadViewFactory(this.moduleId ? relativeToFile(path, this.moduleId) : path, compileInstruction, loadContext);
   }
 }
 
 /**
- * Decorates a custome element class in a way that it loads it's view from
- * elsewehere
+ * Decorates a custom element class in a way that it loads it's view from
+ * elsewhere
  *
- * @param {string} namespace used to seperate different view configurations
+ * @param {string} namespace used to separate different view configurations
  * @param {string} view used to find the value that belongs to the view
  * @returns {function} that takes the target and sets the view strategy on the element
  */

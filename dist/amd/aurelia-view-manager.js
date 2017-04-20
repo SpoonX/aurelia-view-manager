@@ -43,9 +43,10 @@ define(['exports', 'extend', 'aurelia-dependency-injection', 'aurelia-templating
     Config.prototype.configureNamespace = function configureNamespace(name) {
       var _configure;
 
-      var configs = arguments.length <= 1 || arguments[1] === undefined ? { map: {} } : arguments[1];
+      var configs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { map: {} };
 
       var namespace = this.fetch(name);
+
       (0, _extend2.default)(true, namespace, configs);
 
       this.configure((_configure = {}, _configure[name] = namespace, _configure));
@@ -68,8 +69,12 @@ define(['exports', 'extend', 'aurelia-dependency-injection', 'aurelia-templating
       var args = Array.from(arguments);
 
       for (var index in args) {
+        if (!args.hasOwnProperty(index)) {
+          continue;
+        }
         var key = args[index];
         var value = result[key];
+
         if (!value) {
           return value;
         }
@@ -104,6 +109,7 @@ define(['exports', 'extend', 'aurelia-dependency-injection', 'aurelia-templating
       }
 
       var namespaceOrDefault = Object.create(this.config.fetch(namespace));
+
       namespaceOrDefault.view = view;
 
       var location = (namespaceOrDefault.map || {})[view] || namespaceOrDefault.location;
@@ -121,6 +127,7 @@ define(['exports', 'extend', 'aurelia-dependency-injection', 'aurelia-templating
       var regexString = ['{{', key, '}}'].join('');
       var regex = new RegExp(regexString, 'g');
       var value = data[key];
+
       result = result.replace(regex, value);
     }
 
@@ -144,6 +151,7 @@ define(['exports', 'extend', 'aurelia-dependency-injection', 'aurelia-templating
       var path = viewManager.resolve(this.namespace, this.view);
 
       compileInstruction.associatedModuleId = this.moduleId;
+
       return viewEngine.loadViewFactory(this.moduleId ? (0, _aureliaPath.relativeToFile)(path, this.moduleId) : path, compileInstruction, loadContext);
     };
 
