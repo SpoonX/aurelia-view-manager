@@ -23,7 +23,7 @@ with other people's namespaces as their username must be unique.
 ```js
 
   export function configure(aurelia) {
-    aurelia.container.get(ViewManager).configureNamespace('spoonx/modal', {
+    aurelia.container.get(Config).configureNamespace('spoonx/modal', {
       location: './{{framework}}/{{view}}.html'
     });
 
